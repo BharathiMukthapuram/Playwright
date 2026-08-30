@@ -375,47 +375,79 @@
 
 //&  POM
 
-import {test} from "@playwright/test"
-// import loginData from "../../Data/login.json"
-import Json from "../../GenericUtilities/jsonUtility"
-import XLSX from 'xlsx'
-import path from "node:path"
-import { json } from "node:stream/consumers"
-import getData from "../../GenericUtilities/ExcelUtility.js"
-import login from "../../pages/loginPage.js"
-import home from "../../pages/homePage.js"
-import campaignsPage from "../../pages/campaignModule/campaignsPage.js"
-import createCampaigns from "../../pages/campaignModule/createCampaignsPage.js"
-import campaignInformation from "../../pages/campaignModule/campaignInformationPage.js"
+// import {test} from "@playwright/test"
+// // import loginData from "../../Data/login.json"
+// import Json from "../../GenericUtilities/jsonUtility"
+// import XLSX from 'xlsx'
+// import path from "node:path"
+// import { json } from "node:stream/consumers"
+// import getData from "../../GenericUtilities/ExcelUtility.js"
+// import login from "../../pages/loginPage.js"
+// import home from "../../pages/homePage.js"
+// import campaignsPage from "../../pages/campaignModule/campaignsPage.js"
+// import createCampaigns from "../../pages/campaignModule/createCampaignsPage.js"
+// import campaignInformation from "../../pages/campaignModule/campaignInformationPage.js"
 
-test("create campaign", async({page})=>{
-    //> json utility
-    let json= await new Json().getDataFromJson()
-    let url =json.url
-    let un =json.userName
-    let pw=json.password
-     // login into application
-     //! login POM
-    let loginPage= new login(page)
-    await loginPage.gotoLoginpage(url)
-    await loginPage.Login(un,pw)
-    //^ excel utility
-    const excel = new getData();
-    let data = await excel.getDataFromExcel(0);
-    let homePage=new home(page)
-for(let row of data){
-    let campaign_name=row[0]
-    await homePage.gotoCampaigns()
-    let createCamp= new campaignsPage(page)
-    await createCamp.clickLookUp()
-    let create_Campaign =new createCampaigns(page)
-    await create_Campaign.createcampaign(campaign_name)
-    let campaignInfo=new campaignInformation(page)
-    await campaignInfo.validation(campaign_name)
+// test("create campaign", async({page})=>{
+//     //> json utility
+//     let json= await new Json().getDataFromJson()
+//     let url =json.url
+//     let un =json.userName
+//     let pw=json.password
+//      // login into application
+//      //! login POM
+//     let loginPage= new login(page)
+//     await loginPage.gotoLoginpage(url)
+//     await loginPage.Login(un,pw)
+//     //^ excel utility
+//     const excel = new getData();
+//     let data = await excel.getDataFromExcel(0);
+//     let homePage=new home(page)
+// for(let row of data){
+//     let campaign_name=row[0]
+//     await homePage.gotoCampaigns()
+//     let createCamp= new campaignsPage(page)
+//     await createCamp.clickLookUp()
+//     let create_Campaign =new createCampaigns(page)
+//     await create_Campaign.createcampaign(campaign_name)
+//     let campaignInfo=new campaignInformation(page)
+//     await campaignInfo.validation(campaign_name)
    
 
-    await page.goBack()
-}
-    await homePage.Logout()
-})
+//     await page.goBack()
+// }
+//     await homePage.Logout()
+// })
+
+// import { test } from "@playwright/test";
+// // import loginData from "../../Data/login.json"
+// import Json from "../../GenericUtilities/jsonUtility";
+import homePage from "../../pages/homePage.js"
+import getData from "../../GenericUtilities/ExcelUtility.js";
+import campaignsPage from "../../pages/campaignModule/campaignsPage.js";
+import createCampaigns from "../../pages/campaignModule/createCampaignsPage.js";
+import campaignInformation from "../../pages/campaignModule/campaignInformationPage.js";
+import test from "../../hooks.js"
+
+
+test("create campaign", async ({ page }) => {
+  
+  //^ excel utility
+  const excel = new getData();
+  let data = await excel.getDataFromExcel(0);
+//   let homePage = new home(page);
+  for (let row of data) {
+    let campaign_name = row[0];
+    await homePage.gotoCampaigns();
+    let createCamp = new campaignsPage(page);
+    await createCamp.clickLookUp();
+    let create_Campaign = new createCampaigns(page);
+    await create_Campaign.createcampaign(campaign_name);
+    let campaignInfo = new campaignInformation(page);
+    await campaignInfo.validation(campaign_name);
+
+    await page.goBack();
+  }
+
+});
 

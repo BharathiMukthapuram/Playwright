@@ -1,0 +1,3 @@
+campaign1 is created successfully
+campaign2 is created successfully
+campaign3 is created successfully

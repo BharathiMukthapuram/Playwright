@@ -7,7 +7,7 @@ class home{
         this.products=this.page.getByRole('link', { name: 'Products' })
         this.more='//a[text()="More"]'
         this.campaigns='[name="Campaigns"]'
-        this.logoutPNG='[src="themes/softed/images/user.PNG"]'
+        this.logoutPNG = '[src="themes/softed/images/user.PNG"]';
         this.logout=this.page.getByText('Sign Out')
     }
     async gotoOrganizations(){
