@@ -432,7 +432,7 @@ import test from "../../hooks.js"
 
 test("create campaign", async ({ page }) => {
   
-  //^ excel utility
+  // ^ excel utility
   const excel = new getData();
   let data = await excel.getDataFromExcel(0);
 //   let homePage = new home(page);
